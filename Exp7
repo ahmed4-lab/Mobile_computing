@@ -1,0 +1,133 @@
+package com.example.experiment7;
+
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText editText;
+    String clipboard = "";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        editText = findViewById(R.id.editText);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_item, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.menu_cut) {
+            clipboard = editText.getText().toString();
+            editText.setText("");
+            Toast.makeText(this, "Cut", Toast.LENGTH_SHORT).show();
+
+        } else if (id == R.id.menu_copy) {
+            clipboard = editText.getText().toString();
+            Toast.makeText(this, "Copied", Toast.LENGTH_SHORT).show();
+
+        } else if (id == R.id.menu_paste) {
+            editText.setText(clipboard);
+            Toast.makeText(this, "Pasted", Toast.LENGTH_SHORT).show();
+
+        } else if (id == R.id.menu_delete) {
+            editText.setText("");
+            Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
+
+        } else if (id == R.id.menu_select_all) {
+            editText.selectAll();
+            Toast.makeText(this, "All Selected", Toast.LENGTH_SHORT).show();
+
+        } else if (id == R.id.menu_unselect_all) {
+            editText.setSelection(editText.getText().length());
+            Toast.makeText(this, "Unselected", Toast.LENGTH_SHORT).show();
+        }
+
+        return true;
+    }
+}
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Type something here"/>
+
+</LinearLayout>
+
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/menu_cut" android:title="Cut"/>
+    <item android:id="@+id/menu_copy" android:title="Copy"/>
+    <item android:id="@+id/menu_paste" android:title="Paste"/>
+    <item android:id="@+id/menu_delete" android:title="Delete"/>
+    <item android:id="@+id/menu_select_all" android:title="Select All"/>
+    <item android:id="@+id/menu_unselect_all" android:title="Unselect All"/>
+
+</menu>
+
+Experiment 7: Menu Program (Cut, Copy, Paste, Delete, Select All, Unselect All)
+Aim
+
+To create a program that implements a menu-driven interface with editing options such as Cut, Copy, Paste, Delete, Select All, and Unselect All for handling text data.
+
+Algorithm
+1.Start the program
+2.Initialize variables
+    ->Declare a string variable to store the text.
+    ->Declare another variable for clipboard (temporary storage).
+    ->Use a flag or variable to track selection.
+3.Display menu options
+   ->Show the following choices:
+      ->Cut
+      ->Copy
+      ->Paste
+      ->Delete
+      ->Select All
+      ->Unselect All
+      ->Exit
+4.Accept user choice
+5.Perform operation based on choice
+  ->Cut
+     ->If text is selected:
+     ->Copy selected text to clipboard
+     ->Remove selected text from main text
+  ->Copy
+     ->If text is selected:
+     ->Copy selected text to clipboard
+  ->Paste
+     ->Insert clipboard content into the text
+  ->Delete
+     ->Remove selected text from main text
+  ->Select All
+     ->Mark entire text as selected
+  ->Unselect All
+     ->Remove selection
+  ->Exit
+     ->Terminate the program
+6.Display updated text
+7.Repeat steps 3–6 until user selects Exit
+8.Stop the program
